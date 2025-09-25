@@ -4,20 +4,20 @@ import withMDX from '@next/mdx';
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx'], // Include mdx files
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx', 'md'], // Include mdx files
   output: 'export', 
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   turbopack: {
-    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json'],
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json', 'md'],
   },
 };
 
 // Export the config wrapped with MDX plugin
 export default withMDX({
-  extension: /\.mdx?$/,
+  extension: /\.(md|mdx)?$/,
 })(nextConfig);
 
 
