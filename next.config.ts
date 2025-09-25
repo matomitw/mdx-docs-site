@@ -4,14 +4,14 @@ import withMDX from '@next/mdx';
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx', 'md'], // Include mdx files
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx', 'md', '.js'],
   output: 'export', 
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   turbopack: {
-    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json', 'md'],
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json', 'md', 'js'],
   },
 };
 
