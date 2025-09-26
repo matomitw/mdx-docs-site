@@ -9,10 +9,10 @@ export default function index() {
     <div className="text-center bg-red-100">Welcome home</div>
     
    <h1 className="text-center bg-blue-100">
-      Hello world!
+      Hello this is a test!
     </h1>
-    {/* <Mato/> */}
-      {/* <Lucky/> */}
+    <Mato/> 
+   <Lucky/>
     
     </>
   )
