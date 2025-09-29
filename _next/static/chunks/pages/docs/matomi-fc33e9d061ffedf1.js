@@ -1,0 +1,1 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[87],{5360:(_,n,u)=>{(window.__NEXT_P=window.__NEXT_P||[]).push(["/docs/matomi",function(){return u(5507)}])},5507:(_,n,u)=>{"use strict";u.r(n),u.d(n,{default:()=>i});var e=u(7876);function i(){return(0,e.jsx)("div",{children:"matomi"})}u(4232)}},_=>{_.O(0,[636,593,792],()=>_(_.s=5360)),_N_E=_.O()}]);
