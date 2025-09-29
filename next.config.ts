@@ -1,13 +1,14 @@
-// next.config.mjs
 import withMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
 import remarkSmartypants from 'remark-smartypants';
 import remarkTypographer from './plugins/remark-typographer.js';
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: import('next').NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
+  output: "export",
+
 };
 
 export default withMDX({

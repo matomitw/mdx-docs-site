@@ -2,6 +2,7 @@
   "name": "mdx-docs-site",
   "version": "0.1.0",
   "private": true,
+    "homepage": "https://github.com/matomitw/mdx-docs-site",
   "scripts": {
     "dev": "next dev",
     "export": "next export",
