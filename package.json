@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "export": "next export",
-    "build": "next build --turbopack && next export",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "eslint"
   },
@@ -17,7 +17,11 @@
     "@types/mdx": "^2.0.13",
     "next": "15.5.4",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "remark-gfm": "^4.0.1",
+    "remark-retext": "^6.0.1",
+    "remark-smartypants": "^3.0.2",
+    "retext-english": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
