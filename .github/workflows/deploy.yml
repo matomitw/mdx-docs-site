@@ -42,13 +42,10 @@ jobs:
       - name: Build Next.js static site
         run: npm run build
 
-      - name: Clean hidden files
-        run: find out -name '.*' -delete || true
-
-
-      - name: Clean output folder
+      - name: Clean out directory
         run: |
-          rm -rf out/.* || true
+          find out/ -name ".*" -delete 2>/dev/null || true
+          find out/ -type l -delete 2>/dev/null || true
 
 
       - name: Upload site artifact
