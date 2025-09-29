@@ -9,7 +9,7 @@ const nextConfig: import('next').NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     // Suppress VFileMessage serialization warnings from MDX
     config.infrastructureLogging = {
       level: 'error',
