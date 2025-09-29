@@ -1,5 +1,7 @@
-'use client';
+import React from 'react'
 
-export const RatingStars = ({ rating }) => {
-  return <div>{'⭐'.repeat(rating)}</div>;
-};
+export const RatingStars = () => {
+  return (
+    <div>RatingStars</div>
+  )
+}
