@@ -42,6 +42,11 @@ jobs:
       - name: Build Next.js static site
         run: npm run build
 
+      - name: Clean output folder
+        run: |
+          rm -rf out/.* || true
+
+
       - name: Upload site artifact
         uses: actions/upload-artifact@v4
         with:
