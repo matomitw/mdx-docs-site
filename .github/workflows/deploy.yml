@@ -6,26 +6,31 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
+      
       - name: Cache dependencies and Next.js build
         uses: actions/cache@v3
         with:
@@ -35,29 +40,24 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
+      
       - name: Install dependencies
         run: npm ci
-
+      
       - name: Build Next.js static site
         run: npm run build
-
-      - name: Clean out directory
-        run: |
-          find out/ -name ".*" -delete 2>/dev/null || true
-          find out/ -type l -delete 2>/dev/null || true
-
-
-      - name: Upload site artifact
-        uses: actions/upload-artifact@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: ./out
-
+      
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages
 
 
 
