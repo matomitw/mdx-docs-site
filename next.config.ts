@@ -2,28 +2,45 @@
 import withMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
 import remarkSmartypants from 'remark-smartypants';
-import { withRemarkTypographer } from './plugins/remark-typographer.js';
+import { remarkTypographer } from './plugins/remark-typographer.js';
+import { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+
+
+
+const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx', 'md'],
-  output: 'export',
+  output: 'export', // ✅ cast string to literal type
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   turbopack: {
-    resolveExtensions: [
-      '.mdx',
-      '.tsx',
-      '.ts',
-      '.jsx',
-      '.js',
-      '.json',
-      '.md',
-    ],
+    resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.json', '.md'],
   },
 };
+
+
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx', 'md'],
+//   output: 'export',
+//   trailingSlash: true,
+//   images: {
+//     unoptimized: true,
+//   },
+//   turbopack: {
+//     resolveExtensions: [
+//       '.mdx',
+//       '.tsx',
+//       '.ts',
+//       '.jsx',
+//       '.js',
+//       '.json',
+//       '.md',
+//     ],
+//   },
+// };
 
 export default withMDX({
   extension: /\.(md|mdx)?$/,
@@ -31,7 +48,7 @@ export default withMDX({
     remarkPlugins: [
       remarkGfm,
       remarkSmartypants,
-      withRemarkTypographer(), // ✅ now serializable
+      remarkTypographer(),
     ],
     rehypePlugins: [],
   },
