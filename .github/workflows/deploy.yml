@@ -15,38 +15,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Cache dependencies and build
+      # 3️⃣ Cache node_modules and Next.js build cache
+      - name: Cache dependencies and Next.js build
         uses: actions/cache@v3
         with:
           path: |
             node_modules/
             .next/cache/
-          key: ${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ github.ref_name }}-
-            main-
+            ${{ runner.os }}-node-
 
+      # 4️⃣ Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
+      # 5️⃣ Build Next.js static site
       - name: Build Next.js static site
         run: npm run build
 
-      - name: Upload built site
+      # 6️⃣ Upload built site as artifact
+      - name: Upload site artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: ./out
 
+      # 7️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
