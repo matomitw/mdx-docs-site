@@ -5,9 +5,9 @@ import remarkTypographer from './plugins/remark-typographer.js';
 
 /** @type {import('next').NextConfig} */
 const nextConfig: import('next').NextConfig = {
+  output: 'export',
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
-  output: "export",
 
 };
 
