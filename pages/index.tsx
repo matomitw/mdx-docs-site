@@ -1,6 +1,6 @@
 import React from 'react'
-import Mato from './components/Mato'
-import Lucky from './lucky.md'
+// import Mato from './components/Mato'
+// import Lucky from './lucky.md'
 
 
 export default function index() {
