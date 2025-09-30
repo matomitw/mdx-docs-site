@@ -31,16 +31,6 @@ jobs:
           node-version: 20
           cache: npm
       
-      # - name: Cache dependencies and Next.js build
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       node_modules/
-      #       .next/cache/
-      #     key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
-      
       - name: Install dependencies
         run: npm ci
 
