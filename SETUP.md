@@ -91,3 +91,9 @@ const nextConfig = {
 <!-- NOTE -->
 <!-- create .env file to opt out of next telemetry -->
 NEXT_TELEMETRY_DISABLED=1
+
+
+
+  remarkGfm,           // GitHub Flavored Markdown (tables, task lists, etc.)
+  remarkSmartypants,   // Smart quotes and dashes (" → ", -- → —)
+  remarkTypographer,   // Custom typography improvements
