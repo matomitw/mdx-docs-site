@@ -23,7 +23,7 @@ export default function ErrorFallback({ resetErrorBoundary }: FallbackProps) {
         </button>
         <Link
           href="/"
-          className="px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors active:scale-[0.98]"
+          className="px-5 py-2.5 rounded-lg bg-emerald-600 !text-white text-sm font-medium hover:bg-emerald-700 transition-colors active:scale-[0.98] no-underline border-none"
         >
           Go home
         </Link>

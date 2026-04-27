@@ -15,7 +15,7 @@ export default function Custom404() {
       </p>
       <Link
         href="/"
-        className="mt-8 inline-block px-5 py-2.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors active:scale-[0.98]"
+        className="mt-8 inline-block px-5 py-2.5 rounded-lg bg-emerald-600 !text-white text-sm font-medium hover:bg-emerald-700 transition-colors active:scale-[0.98] no-underline border-none"
       >
         Back to safety
       </Link>
