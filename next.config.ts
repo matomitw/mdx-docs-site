@@ -1,108 +1,17 @@
-import withMDX from '@next/mdx';
-import remarkGfm from 'remark-gfm';
-import remarkSmartypants from 'remark-smartypants';
-import remarkTypographer from './plugins/remark-typographer.js';
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
 
-/** @type {import('next').NextConfig} */
-const nextConfig: import('next').NextConfig = {
-  output: 'export',
+const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
-  
-  webpack: (config) => {
-    // Suppress VFileMessage serialization warnings from MDX
-    config.infrastructureLogging = {
-      level: 'error',
-    };
-    
-    return config;
-  },
 };
 
-export default withMDX({
+const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [
-      remarkGfm,
-      remarkSmartypants,
-      remarkTypographer,
-    ],
+    remarkPlugins: [],
     rehypePlugins: [],
   },
-})(nextConfig);
+});
 
-
-
-
-// working but not suppressing error vfilemessage
-// import withMDX from '@next/mdx';
-// import remarkGfm from 'remark-gfm';
-// import remarkSmartypants from 'remark-smartypants';
-// import remarkTypographer from './plugins/remark-typographer.js';
-
-// /** @type {import('next').NextConfig} */
-// const nextConfig: import('next').NextConfig = {
-//   output: 'export',
-//   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-//   reactStrictMode: true,
-
-// };
-
-// export default withMDX({
-//   extension: /\.mdx?$/,
-//   options: {
-//     remarkPlugins: [
-//       remarkGfm,
-//       remarkSmartypants,
-//       remarkTypographer,
-//     ],
-//     rehypePlugins: [],
-//   },
-// })(nextConfig);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // next.config.mjs
-// import withMDX from '@next/mdx';
-// import remarkGfm from 'remark-gfm';
-// import remarkSmartypants from 'remark-smartypants';
-
-
-
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-//   reactStrictMode: true,
-// };
-
-// export default withMDX({
-//   extension: /\.mdx?$/,
-//   options: {
-//     remarkPlugins: [
-//       remarkGfm,
-//       [remarkSmartypants, { typographer: true }],
-//     ],
-//     rehypePlugins: [],
-//   },
-// })(nextConfig);
-
-
-// export default withMDX({
-//   extension: /\.mdx?$/,
-//   options: {
-//     remarkPlugins: [remarkGfm, remarkSmartypants],
-//     rehypePlugins: [],
-//   },
-// })(nextConfig);
+export default withMDX(nextConfig);
