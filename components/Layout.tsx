@@ -10,25 +10,11 @@ interface LayoutProps {
   pages?: PageInfo[];
 }
 
-export default function Layout({ children, pages: initialPages = [] }: LayoutProps) {
+export default function Layout({ children, pages = [] }: LayoutProps) {
   const router = useRouter();
-  const [fetchedPages, setFetchedPages] = useState<PageInfo[]>([]);
   const [moreOpen, setMoreOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
-
-  // Use props if available, otherwise fetch from API
-  const pages = initialPages.length > 0 ? initialPages : fetchedPages;
-
-  useEffect(() => {
-    if (initialPages.length > 0) return;
-    let cancelled = false;
-    fetch('/api/pages')
-      .then((r) => r.json())
-      .then((data) => { if (!cancelled) setFetchedPages(data); })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, [initialPages.length]);
 
   const closeMenus = useCallback(() => {
     setMoreOpen(false);
