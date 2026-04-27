@@ -34,7 +34,7 @@ Drop a markdown file into `pages/` and it becomes a route:
 | `pages/blog/post.mdx` | `/blog/post` |
 | `pages/docs/setup.md` | `/docs/setup` |
 
-The homepage and navbar update automatically — no config needed.
+The homepage and navbar update automatically no config needed.
 
 ### File Types
 
