@@ -9,7 +9,7 @@ export default function Custom404() {
         Page not found
       </h1>
       <p className="mt-3 text-base text-zinc-500 max-w-md">
-        Even the saints of Teamwork Saint Priest couldn&apos;t locate this page.
+        Even our top agents couldn&apos;t locate this page.
         We&apos;ve sent agent <span className="font-semibold text-zinc-700">Matomi Lucky Ezekiel</span> to
         investigate, but between us, he thinks you just typed the wrong URL.
       </p>

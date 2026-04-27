@@ -10,8 +10,9 @@ export default function ErrorFallback({ resetErrorBoundary }: FallbackProps) {
         Well, that wasn&apos;t supposed to happen
       </h1>
       <p className="mt-3 text-base text-zinc-500 max-w-md">
-        Something went sideways at Teamwork Saint Priest.
-        Don&apos;t worry, our top agent <span className="font-semibold text-zinc-700">Matomi Lucky Ezekiel</span> has
+        Something went sideways.
+        <br/>
+        Don&apos;t worry, our top agent <span className="font-semibold text-zinc-700">Matomi Lucky Ezekiel </span> has
         been dispatched to fix it. He&apos;s probably already on it with a coffee in hand.
       </p>
       <div className="mt-8 flex gap-3">
