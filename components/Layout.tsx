@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { PageInfo } from '../lib/getPages';
@@ -12,21 +12,35 @@ interface LayoutProps {
 
 export default function Layout({ children, pages: initialPages = [] }: LayoutProps) {
   const router = useRouter();
-  const [pages, setPages] = useState<PageInfo[]>(initialPages);
+  const [fetchedPages, setFetchedPages] = useState<PageInfo[]>([]);
   const [moreOpen, setMoreOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+
+  // Use props if available, otherwise fetch from API
+  const pages = initialPages.length > 0 ? initialPages : fetchedPages;
 
   useEffect(() => {
-    if (initialPages.length > 0) {
-      setPages(initialPages);
-      return;
-    }
+    if (initialPages.length > 0) return;
+    let cancelled = false;
     fetch('/api/pages')
       .then((r) => r.json())
-      .then((data) => setPages(data))
+      .then((data) => { if (!cancelled) setFetchedPages(data); })
       .catch(() => {});
-  }, [initialPages]);
+    return () => { cancelled = true; };
+  }, [initialPages.length]);
 
+  const closeMenus = useCallback(() => {
+    setMoreOpen(false);
+    setMobileOpen(false);
+  }, []);
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', closeMenus);
+    return () => { router.events.off('routeChangeComplete', closeMenus); };
+  }, [router.events, closeMenus]);
+
+  // Close dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -37,22 +51,11 @@ export default function Layout({ children, pages: initialPages = [] }: LayoutPro
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  useEffect(() => {
-    setMoreOpen(false);
-  }, [router.pathname]);
-
   const visibleLinks = pages.slice(0, MAX_VISIBLE_NAV);
   const overflowLinks = pages.slice(MAX_VISIBLE_NAV);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [router.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Nav */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-white/80 border-b border-zinc-200">
         <nav className="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <Link
@@ -62,7 +65,6 @@ export default function Layout({ children, pages: initialPages = [] }: LayoutPro
             TW MDX Docs
           </Link>
 
-          {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen((v) => !v)}
             className="md:hidden p-2 rounded-lg text-zinc-500 hover:bg-zinc-100 transition-colors"
@@ -76,7 +78,6 @@ export default function Layout({ children, pages: initialPages = [] }: LayoutPro
             </svg>
           </button>
 
-          {/* Desktop nav */}
           <ul className="hidden md:flex items-center gap-1">
             <li>
               <Link
@@ -155,7 +156,6 @@ export default function Layout({ children, pages: initialPages = [] }: LayoutPro
             )}
           </ul>
 
-          {/* Mobile nav dropdown */}
           {mobileOpen && (
             <div className="absolute top-full left-0 right-0 bg-white border-b border-zinc-200 shadow-lg md:hidden">
               <div className="px-4 py-3 space-y-1">
@@ -191,14 +191,12 @@ export default function Layout({ children, pages: initialPages = [] }: LayoutPro
         </nav>
       </header>
 
-      {/* Content */}
       <main className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <article className="prose prose-lg prose-zinc max-w-none">
           {children}
         </article>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-zinc-200 bg-white/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 text-center text-sm text-zinc-400">
           &copy; 2026 Teamwork Saint Priest
