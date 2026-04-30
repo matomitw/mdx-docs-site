@@ -19,9 +19,31 @@ useDefault = true
     '''pnpm-lock\.yaml''',
     '''\.gitleaks\.toml''',
     '''scripts/scan-secrets\.sh''',  # The script itself contains regex patterns, not real secrets
+    '''\.agent/''',
+    '''\.agents/''',
+    '''\.claude/skills/''',
+    '''\.kiro/skills/''',
+    '''_bmad/''',
+    '''_bmad-output/''',
   ]
 
 # Custom rules specific to this project (on top of gitleaks defaults)
+[[rules]]
+  id = "plaintext-password"
+  description = "Plaintext password in content files"
+  regex = '''(?i)(password|passwd)\s*[:=]?\s+[^\s"']{4,}'''
+  tags = ["password", "plaintext"]
+  [rules.allowlist]
+    description = "Ignore code patterns and documentation references"
+    regexes = [
+      '''process\.env''',
+      '''Cypress\.env''',
+      '''string\)''',
+      '''string\}''',
+      '''string>''',
+      '''(?i)password\s+(reset|leak|field|hash|NEVER|is|was|for|the|and|or|to|in|on|of|must|should|can|will|may|not|are|has|had|have|with|from|that|this|which|when|where|how|what|why|who|its|our|your|their|his|her|all|any|each|every|both|few|more|most|much|many|some|such|only|just|also|very|often|never|always|still|already|yet|even|now|then|here|there|where|after|before|during|since|until|while|about|above|below|between|into|through|under|over|upon|within|without|along|among|around|behind|beside|beyond|near|off|out|past|toward|across|against|down|inside|outside|up)(?:\s|$)''',
+    ]
+
 [[rules]]
   id = "env-file-content"
   description = "Environment variable with sensitive value"
