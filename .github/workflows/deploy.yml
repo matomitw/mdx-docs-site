@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -46,8 +48,14 @@ jobs:
 
       - name: Scan full repo for plaintext secrets
         run: |
-          curl -sSfL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks_8.24.3_linux_x64.tar.gz | tar xz -C /usr/local/bin gitleaks
-          gitleaks detect --source . --config .gitleaks.toml --no-git --verbose
+          GITLEAKS_BIN=$(find /tmp -name "gitleaks" -type f -executable 2>/dev/null | head -1)
+          if [ -z "$GITLEAKS_BIN" ]; then
+            echo "gitleaks binary not found, installing..."
+            wget -qO- https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz | tar xz -C /tmp gitleaks
+            GITLEAKS_BIN=/tmp/gitleaks
+          fi
+          echo "Using gitleaks at: $GITLEAKS_BIN"
+          $GITLEAKS_BIN detect --source . --config .gitleaks.toml --no-git --verbose
 
       - name: Cache Next.js Build Output
         uses: actions/cache@v4
