@@ -48,6 +48,7 @@ jobs:
 
       - name: Scan full repo for plaintext secrets
         run: |
+          rm -f results.sarif
           GITLEAKS_BIN=$(find /tmp -name "gitleaks" -type f -executable 2>/dev/null | head -1)
           if [ -z "$GITLEAKS_BIN" ]; then
             echo "gitleaks binary not found, installing..."

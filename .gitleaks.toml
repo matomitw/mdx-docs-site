@@ -25,6 +25,7 @@ useDefault = true
     '''\.kiro/skills/''',
     '''_bmad/''',
     '''_bmad-output/''',
+    '''results\.sarif''',
   ]
 
 # Custom rules specific to this project (on top of gitleaks defaults)
