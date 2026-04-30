@@ -33,3 +33,10 @@ useDefault = true
   description = "Square API token"
   regex = '''sq0[a-z]{3}-[a-zA-Z0-9_-]+'''
   tags = ["api", "square"]
+
+[[rules]]
+  id = "plaintext-password"
+  description = "Plaintext password in content"
+  regex = '''(?i)(password|passwd|pass)\s*[:=]?\s+\S{4,}'''
+  tags = ["password", "plaintext"]
+
