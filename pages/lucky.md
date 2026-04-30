@@ -8,10 +8,6 @@ This is a **live demxo** of MDXEditor with all default features on.
 
 [— Daring Fireball](https://daringfireball.net/projects/markdown/).
 
-name matomi
-password 1235478d
-pass 478dlks
-
 In here, you can find the following markdown elements:
 
 * Headings
