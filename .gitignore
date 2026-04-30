@@ -33,6 +33,14 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# bmad / agent skills
+.claude/skills/bmad-*
+.agent/
+.agents/
+.kiro/
+_bmad/
+
+
 # vercel
 .vercel
 

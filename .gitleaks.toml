@@ -1,0 +1,35 @@
+# Gitleaks configuration for mdx-docs-site
+# https://github.com/gitleaks/gitleaks
+
+title = "mdx-docs-site gitleaks config"
+
+# Extend the default gitleaks rules (100+ built-in patterns)
+# This file only needs to define allowlists and custom rules
+
+[extend]
+# Use all default rules from gitleaks
+useDefault = true
+
+# Paths to ignore during scanning
+[allowlist]
+  description = "Global allowlist"
+  paths = [
+    '''node_modules/''',
+    '''\.next/''',
+    '''pnpm-lock\.yaml''',
+    '''\.gitleaks\.toml''',
+    '''scripts/scan-secrets\.sh''',  # The script itself contains regex patterns, not real secrets
+  ]
+
+# Custom rules specific to this project (on top of gitleaks defaults)
+[[rules]]
+  id = "env-file-content"
+  description = "Environment variable with sensitive value"
+  regex = '''(?i)(DATABASE_URL|MONGO_URI|REDIS_URL)\s*=\s*[^\s]+'''
+  tags = ["env", "database"]
+
+[[rules]]
+  id = "square-token"
+  description = "Square API token"
+  regex = '''sq0[a-z]{3}-[a-zA-Z0-9_-]+'''
+  tags = ["api", "square"]

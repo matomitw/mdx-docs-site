@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Run gitleaks on staged changes only
+gitleaks protect --staged --verbose
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Secrets detected! Commit blocked."
+  echo "   Fix the issues above, then try again."
+  echo "   To skip this check (not recommended): git commit --no-verify"
+  exit 1
+fi

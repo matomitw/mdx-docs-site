@@ -180,4 +180,46 @@ This runs typecheck + lint + build in sequence — the same checks that run in C
 
 ---
 
+## Security: Secret Scanning
+
+This project includes automatic secret detection to prevent accidental exposure of passwords, API keys, or tokens in your markdown files.
+
+### How it works
+
+Three layers of protection:
+
+1. **On save** — A Kiro hook scans your file every time you save a `.md`, `.mdx`, or code file.
+2. **Pre-commit** — A git hook blocks commits if secrets are detected.
+3. **CI pipeline** — GitHub Actions runs the scanner before building. If secrets are found, the deploy fails.
+
+### Setup the git hook (one time)
+
+```bash
+bash scripts/install-hooks.sh
+```
+
+### Run manually
+
+```bash
+pnpm run scan-secrets
+```
+
+### What it detects
+
+- AWS access keys
+- GitHub tokens (PAT, OAuth)
+- OpenAI / Stripe / Slack / Square keys
+- Password, secret, token, api_key assignments
+- Private key blocks (RSA, DSA, EC)
+- Database connection strings
+- `.env` files not in `.gitignore`
+
+### If a secret is detected
+
+1. Remove the sensitive value from the file
+2. If already committed, rotate the credential immediately
+3. Use environment variables or a secrets manager instead
+
+---
+
 Built by Teamwork Saint Priest.

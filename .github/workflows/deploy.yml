@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Scan for secrets
+        run: bash scripts/scan-secrets.sh
+
       - name: Cache Next.js Build Output
         uses: actions/cache@v4
         with:
