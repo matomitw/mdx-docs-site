@@ -23,11 +23,16 @@ PATTERNS=(
   'rk_live_[a-zA-Z0-9]+'                      # Stripe restricted key
   'sq0[a-z]{3}-[a-zA-Z0-9_-]+'               # Square tokens
 
-  # Generic patterns
+  # Generic patterns (quoted: password = "..." and unquoted: password 1235478d)
   'password\s*[:=]\s*["\x27][^"\x27]{4,}'     # password = "..." or password: "..."
+  'password\s*[:=]?\s+[^"\x27\s][^\s]{3,}'    # password 1235478d (unquoted, no delimiter)
+  '(^|\s)pass\s*[:=]?\s+[^"\x27\s][^\s]{3,}' # pass 478dlks (short alias, unquoted)
   'secret\s*[:=]\s*["\x27][^"\x27]{4,}'       # secret = "..."
+  'secret\s*[:=]?\s+[^"\x27\s][^\s]{3,}'      # secret myvalue (unquoted)
   'api[_-]?key\s*[:=]\s*["\x27][^"\x27]{4,}'  # api_key = "..."
+  'api[_-]?key\s*[:=]?\s+[^"\x27\s][^\s]{3,}' # api_key myvalue (unquoted)
   'token\s*[:=]\s*["\x27][^"\x27]{4,}'        # token = "..."
+  'token\s*[:=]?\s+[^"\x27\s][^\s]{3,}'       # token myvalue (unquoted)
   'private[_-]?key'                            # private_key references
   'BEGIN (RSA|DSA|EC|OPENSSH) PRIVATE KEY'     # Private key blocks
   'jdbc:[a-z]+://[^\s]+'                       # Database connection strings
