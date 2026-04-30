@@ -39,7 +39,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Scan for secrets
-        run: bash scripts/scan-secrets.sh
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cache Next.js Build Output
         uses: actions/cache@v4
